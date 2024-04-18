@@ -1,6 +1,12 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  jest: {
+    setupFilesAfterEnv: ["<rootDir>/config/setupTests.js"],
+    moduleNameMapper: {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    }
+  },
   entry: "./src/index.js",
   output: {
     filename: "bundle.js",
