@@ -1,3 +1,4 @@
+import '../css/main.css';
 const $ = require("jquery");
 import _ from 'lodash';
 
