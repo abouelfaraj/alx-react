@@ -5,13 +5,18 @@ const getFullYear = () => {
 
 const getFooterCopy = (isIndex) => {
 	if (isIndex) {
-		return "";
+		return "Holberton School";
 	} else {
-		return "";
+		return "Holberton School main dashboard";
 	}
 }
 
+const getLatestNotification = () => {
+	return	"<strong>Urgent requirement</strong> - complete by EOD";
+}
+
 module.exports = {
+	getLatestNotification,
 	getFooterCopy,
 	getFullYear,
 };
