@@ -12,9 +12,8 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     devServer: {
-        static: path.join(__dirname, '../dist'),
-        open: true,
-        port: 8564,
+        contentBase: path.resolve(__dirname, '../dist'),
+        hot: true,
     },
     optimization: {
         splitChunks: {
@@ -32,28 +31,28 @@ module.exports = {
     ],
     module: {
         rules: [
-            {
-                test: /\.css$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                ],
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
             },
-            {
-                test: /\.(?:ico|gif|png|jpe?g|svg)$/i,
-                type: 'asset/resource',
-                use: [
-                    'file-loader',
-                    {
-                        loader: 'image-webpack-loader',
-                        options: {
-                            bypassOnDebug: true,
-                            disable: true,
-                        },
-                    },
-                ],
-            },
+          },
         ],
+      },
+    ],
     },
     performance: {
         maxAssetSize: 1000000,
