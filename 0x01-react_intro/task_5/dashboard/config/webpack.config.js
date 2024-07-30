@@ -12,8 +12,13 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: path.resolve(__dirname, '../dist'),
-        hot: true,
+	    static: {
+	      directory: path.resolve(__dirname, '../dist'), // Replaces contentBase
+	    },
+	    hot: true, // Enables Hot Module Replacement
+	    client: {
+	      logging: 'info', // Logging level for the client
+	    },
     },
     optimization: {
         splitChunks: {
@@ -31,28 +36,28 @@ module.exports = {
     ],
     module: {
         rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: 'babel-loader',
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'images/',
-            },
-          },
-        ],
-      },
-    ],
+	      {
+		test: /\.js$/,
+		exclude: /node_modules/,
+		use: 'babel-loader',
+	      },
+	      {
+		test: /\.css$/,
+		use: ['style-loader', 'css-loader'],
+	      },
+	      {
+		test: /\.(png|svg|jpg|gif)$/,
+		use: [
+		  {
+		    loader: 'file-loader',
+		    options: {
+		      name: '[name].[ext]',
+		      outputPath: 'images/',
+			    },
+		  },
+		],
+	      },
+    	],
     },
     performance: {
         maxAssetSize: 1000000,
