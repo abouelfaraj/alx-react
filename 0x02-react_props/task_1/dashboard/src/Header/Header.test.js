@@ -1,10 +1,15 @@
-import Header from "./Header";
 import React from "react";
+import Header from "./Header";
 import { shallow } from "enzyme";
 
-describe("Header tests", () => {
-  it("renders without crashing", () => {
-    const component = shallow(<App />);
-    expect(component).toBeDefined();
-  });
+describe("Header", () => {
+	  it("render without crashing", () => {
+		      const wrapper = shallow(<Header />);
+		      expect(wrapper.exists()).toEqual(true);
+		    });
+	  it("should render a h1", () => {
+		      const wrapper = shallow(<Header />);
+		      expect(wrapper.exists("img")).toEqual(true);
+		      expect(wrapper.containsMatchingElement(<h1>School dashboard</h1>)).toEqual(true);
+		    });
 });
