@@ -12,7 +12,7 @@ function App() {
 	  <Notifications />
 	  <div className="App">
 	  	<Header />
-	  	<login />
+	  	<Login />
 	  	<Footer />
 	  </div>
 	</React.Fragment>
