@@ -1,18 +1,19 @@
-import React from 'react';
-import { css, StyleSheet } from 'aphrodite';
-import closeIcon from '../assets/close-icon.png';
-import NotificationItem from './NotificationItem';
-import PropeTypes from 'prop-types';
-import NotificationItemShape from './NotificationItemShape';
+import React, { Component } from "react";
+import { StyleSheet, css } from "aphrodite";
+import closeIcon from "../assets/close-icon.png";
+import NotificationItem from "./NotificationItem";
+import PropTypes from "prop-types";
+import NotificationItemShape from "./NotificationItemShape";
 
-class Notifications extends React.Component {
+class Notifications extends Component {
   constructor(props) {
     super(props);
+
     this.markAsRead = this.markAsRead.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.listNotifications.length > this.props.listNotifications.length;
+    return nextProps.length > this.props.listNotifications.length;
   }
 
   markAsRead(id) {
@@ -92,14 +93,14 @@ const styles = StyleSheet.create({
   },
 });
 
-Notifications.defaultProps = {
-  displayDrawer: false,
-  listNotifications: []
+Notifications.propTypes = {
+  displayDrawer: PropTypes.bool,
+  listNotifications: PropTypes.arrayOf(NotificationItemShape),
 };
 
-Notifications.propTypes = {
-  displayDrawer: PropeTypes.bool,
-  listNotifications: PropeTypes.arrayOf(NotificationItemShape)
+Notifications.defaultProps = {
+  displayDrawer: false,
+  listNotifications: [],
 };
 
 export default Notifications;
