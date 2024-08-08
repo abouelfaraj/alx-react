@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import { css, StyleSheet } from 'aphrodite';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Notification from '../Notifications/Notifications';
@@ -13,22 +13,22 @@ import { StyleSheet, css } from 'aphrodite';
 
 
 class App extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.isLoggedIn = props.isLoggedIn;
     this.logOut = props.logOut;
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.listCourses = [
-      {id: 1, name: 'ES6', credit: 60},
-      {id: 2, name: 'Webpack', credit: 20},
-      {id: 3, name: 'React', credit: 40}
+      { id: 1, name: 'ES6', credit: 60 },
+      { id: 2, name: 'Webpack', credit: 20 },
+      { id: 3, name: 'React', credit: 40 }
     ];
-  
+
     this.listNotifications = [
-      {id: 1, value: "New course available", type: "default"},
-      {id: 2, value: "New resume available", type: "urgent"},
-      {id: 3, html: {__html: getLatestNotification()}, type: "urgent"},
+      { id: 1, value: "New course available", type: "default" },
+      { id: 2, value: "New resume available", type: "urgent" },
+      { id: 3, html: { __html: getLatestNotification() }, type: "urgent" },
     ];
   }
 
@@ -37,7 +37,7 @@ class App extends React.Component {
       e.preventDefault();
       alert("Logging you out");
       this.logOut();
-    }  
+    }
   }
 
   componentDidMount() {
@@ -48,19 +48,28 @@ class App extends React.Component {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  render () {
+  render() {
     return (
       <React.Fragment>
-        <Notification listNotifications={this.listNotifications}/>
-        <div className="App">
-          <Header />
-          {this.props.isLoggedIn ?
-            <BodySectionWithMarginBottom title="Course list"><CourseList listCourses={this.listCourses}/></BodySectionWithMarginBottom>
-          : 
-            <BodySectionWithMarginBottom title="Log in to continue"><Login /></BodySectionWithMarginBottom>
-          }
-          <BodySection title="News from the School">
-            <p>Random Text</p>
+        <div className={css(styles.App)}>
+          <div className="heading-section">
+            <Notifications listNotifications={this.listNotifications} />
+            <Header />
+          </div>
+          {this.props.isLoggedIn ? (
+            <BodySectionWithMarginBottom title="Course list">
+              <CourseList listCourses={this.listCourses} />
+            </BodySectionWithMarginBottom>
+          ) : (
+            <BodySectionWithMarginBottom title="Log in to continue">
+              <Login />
+            </BodySectionWithMarginBottom>
+          )}
+          <BodySection title="News from the school">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis at tempora odio, necessitatibus repudiandae reiciendis cum nemo sed asperiores ut molestiae eaque aliquam illo ipsa
+              iste vero dolor voluptates.
+            </p>
           </BodySection>
           <Footer />
         </div>
@@ -69,9 +78,18 @@ class App extends React.Component {
   }
 }
 
+const styles = StyleSheet.create({
+  App: {
+    height: "100vh",
+    maxWidth: "100vw",
+    position: "relative",
+    fontFamily: "Arial, Helvetica, sans-serif",
+  },
+});
+
 App.defaultProps = {
   isLoggedIn: false,
-  logOut: () => {}
+  logOut: () => { }
 };
 
 App.propTypes = {
