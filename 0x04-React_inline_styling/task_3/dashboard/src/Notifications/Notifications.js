@@ -42,6 +42,7 @@ class Notifications extends Component {
                 outline: "none",
               }}
               aria-label="Close"
+	      className={css(styles.button)}
               onClick={(e) => {
                 console.log("Close button has been clicked");
               }}
@@ -49,7 +50,7 @@ class Notifications extends Component {
               <img src={closeIcon} alt="close icon" width="10px" />
             </button>
             {this.props.listNotifications.length != 0 ? <p>Here is the list of notifications</p> : null}
-            <ul>
+            <ul className={css(notificationStyles.ul)}>
               {this.props.listNotifications.length == 0 ? <NotificationItem type="default" value="No new notification for now" /> : null}
               {this.props.listNotifications.map((val, idx) => {
                 return <NotificationItem type={val.type} value={val.value} html={val.html} key={val.id} markAsRead={this.markAsRead} id={val.id} />;
@@ -64,33 +65,37 @@ class Notifications extends Component {
 
 const styles = StyleSheet.create({
   Notifications: {
-    padding: "1em",
-    border: "2px dashed red",
-    position: "absolute",
-    top: "1.8em",
-    right: "0",
-  },
-
-  "notification-header": {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-
+    border: '3px dotted var(--holberton-red)',
+    padding: '6px 12px',
+    position: 'absolute',
+    top: '21px',
+    right: '7px',
+    marginTop: '12px',
+    zIndex: '100',
+    '@media (max-width: 900px)': {
+      width: '100%',
+      padding: '0px',
+      fontSize: 20,
+      position: 'relative',
+      right: 0,
+      left: 0,
+      border: 'none',
+    }
+	},
   menuItem: {
-    textAlign: "right",
+    textAlign: 'right'
   },
-
-  '[data-notification-type="default"]': {
-    color: "blue",
+  ul: {
+    '@media (max-width: 900px)': {
+      padding: 0
+    }
   },
-
-  "[data-urgent]": {
-    color: "red",
-  },
-
-  '[data-notification-type="urgent"]': {
-    color: "red",
-  },
+  button: {
+    '@media (max-width: 900px)': {
+      position: 'relative',
+      float: 'right',
+    }
+  }
 });
 
 Notifications.propTypes = {
