@@ -51,7 +51,7 @@ class App extends React.Component {
       <React.Fragment>
         <div className={css(styles.App)}>
           <div className="heading-section">
-            <Notifications listNotifications={this.listNotifications} />
+            <Notification listNotifications={this.listNotifications} />
             <Header />
           </div>
           {this.props.isLoggedIn ? (
