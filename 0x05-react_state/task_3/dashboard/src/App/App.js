@@ -20,18 +20,24 @@ class App extends React.Component {
       { id: 3, name: "React", credit: 40 },
     ];
 
-    this.listNotifications = [
-      { id: 1, value: "New course available", type: "default" },
-      { id: 2, value: "New resume available", type: "urgent" },
-      { id: 3, html: { __html: getLatestNotification() }, type: "urgent" },
-    ];
-
     this.state = {
       displayDrawer: false,
       user: user,
       logOut: this.logOut,
+      listNotifications: [
+        { id: 1, value: "New course available", type: "default" },
+        { id: 2, value: "New resume available", type: "urgent" },
+        { id: 3, html: { __html: getLatestNotification() }, type: "urgent" },
+      ]
     };
   }
+
+  markNotificationAsRead = (id) => {
+    const newList = this.state.listNotifications.filter(keep => keep.id !== id);
+    this.setState({
+      listNotifications: newList,
+    });
+  };
 
   logIn = (email, password) => {
     // Update the user state
@@ -89,7 +95,7 @@ class App extends React.Component {
       >
         <React.Fragment>
           <Notification
-            listNotifications={this.listNotifications}
+            listNotifications={this.state.listNotifications}
             displayDrawer={this.state.displayDrawer}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
