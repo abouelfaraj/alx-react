@@ -1,23 +1,35 @@
-import { shallow } from "enzyme";
-import React from "react";
-import Login from "./Login";
-import { StyleSheetTestUtils } from "aphrodite";
+import React from 'react';
+import Login from './Login';
+import { mount, shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 
-beforeEach(() => {
-  StyleSheetTestUtils.suppressStyleInjection();
-});
-afterEach(() => {
-  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
+describe("testing the <Login /> component", () => {
+  let wrapper;
 
-describe("Header", () => {
-  it("should render without crashing", () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.exists()).toEqual(true);
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+    wrapper = shallow(<Login />);
   });
-  it("should have 2 input tags and 2 label tags", () => {
-    const wrapper = shallow(<Login />);
+
+  it("Login component renders without crashing", () => {
+    expect(wrapper).toBeDefined();
+  });
+
+  it("Login component renders 2 input tags and 2 label tags", () => {
+    expect(wrapper.find("input")).toHaveLength(3);
     expect(wrapper.find("label")).toHaveLength(2);
-    expect(wrapper.find("input")).toHaveLength(2);
+
+  });
+});
+
+describe("Test the <Login /> component with state", () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = mount(<Login />);
+  });
+
+  it("Verify that the submit button is disabled by default", () => {
+    expect(wrapper.state().enableSubmit).toBe(false);
   });
 });
